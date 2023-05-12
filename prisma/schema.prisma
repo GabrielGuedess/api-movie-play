@@ -1,8 +1,76 @@
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-3.0.x", "linux-musl", "linux-musl-openssl-3.0.x"]
 }
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  password  String
+  name      String
+  avatar    String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+
+  @@map("users")
+}
+
+model Movie {
+  id        String   @id @default(uuid())
+  name      String   @unique
+  url       String   @unique
+  tmdbId    Int      @unique
+  type      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+
+  @@map("movies")
+}
+
+model Serie {
+  id        String   @id @default(uuid())
+  name      String   @unique
+  tmdbId    Int      @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+
+  Season Season[]
+
+  @@map("series")
+}
+
+model Season {
+  id           String   @id @default(uuid())
+  tmdbId       Int      @unique
+  seasonNumber Int      @unique
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @default(now())
+
+  serie   Serie  @relation(fields: [serieId], references: [id])
+  serieId String
+
+  Episode Episode[]
+
+  @@map("seasons")
+}
+
+model Episode {
+  id            String   @id @default(uuid())
+  tmdbId        Int      @unique
+  episodeNumber Int      @unique
+  name          String   @unique
+  url           String   @unique
+  type          String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @default(now())
+
+  season   Season @relation(fields: [seasonId], references: [id])
+  seasonId String
+
+  @@map("episodes")
 }
