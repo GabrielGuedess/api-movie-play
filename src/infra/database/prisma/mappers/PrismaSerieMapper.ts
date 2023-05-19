@@ -1,5 +1,11 @@
-import { Serie as RawSerie } from '@prisma/client';
+import {
+  Serie as RawSerie,
+  Season as RawSeason,
+  Episode as RawEpisode,
+} from '@prisma/client';
 
+import { Episode } from 'app/entities/Episode';
+import { Season } from 'app/entities/Season';
 import { Serie } from 'app/entities/Serie';
 
 export class PrismaSerieMapper {
@@ -12,12 +18,10 @@ export class PrismaSerieMapper {
       Season: {
         create: {
           seasonNumber: serie.season.seasonNumber,
-          tmdbId: serie.season.tmdbId,
 
           Episode: {
             create: {
               name: serie.season.episode.name,
-              tmdbId: serie.season.episode.tmdbId,
               url: serie.season.episode.url,
               type: serie.season.episode.type,
               episodeNumber: serie.season.episode.episodeNumber,
@@ -28,13 +32,28 @@ export class PrismaSerieMapper {
     };
   }
 
-  static toDomain(serieRaw: RawSerie): Serie {
+  static toDomain(
+    serieRaw: RawSerie,
+    seasonRaw: RawSeason,
+    episodeRaw: RawEpisode,
+  ): Serie {
     return new Serie({
       id: serieRaw.id,
       name: serieRaw.name,
       tmdbId: serieRaw.tmdbId,
       updatedAt: serieRaw.updatedAt,
       createdAt: serieRaw.createdAt,
+
+      season: new Season({
+        seasonNumber: seasonRaw.seasonNumber,
+
+        episode: new Episode({
+          name: episodeRaw.name,
+          url: episodeRaw.url,
+          type: episodeRaw.type,
+          episodeNumber: episodeRaw.episodeNumber,
+        }),
+      }),
     });
   }
 }

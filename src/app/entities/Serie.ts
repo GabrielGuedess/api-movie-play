@@ -4,7 +4,7 @@ export interface SerieProps {
   id?: string;
   name: string;
   tmdbId: number;
-  season?: Season;
+  season: Season;
   updatedAt?: Date;
   createdAt?: Date;
 }

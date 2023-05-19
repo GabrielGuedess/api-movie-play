@@ -3,6 +3,7 @@ import { Module } from '@nestjs/common';
 import { GetMovieFirstOptionUseCase } from 'app/useCases/getMovieFirstOption/GetMovieFirstOptionUseCase';
 import { GetMovieSecondOptionUseCase } from 'app/useCases/getMovieSecondOption/GetMovieSecondOptionUseCase';
 import { GetSerieFirstOptionUseCase } from 'app/useCases/getSerieFirstOption/GetSerieFirstOptionUseCase';
+import { GetSerieSecondOptionUseCase } from 'app/useCases/getSerieSecondOption/GetSerieSecondOptionUseCase';
 
 import { DatabaseModule } from 'infra/database/database.module';
 
@@ -16,6 +17,7 @@ import { SerieController } from './controllers/serie.controller';
     GetMovieFirstOptionUseCase,
     GetMovieSecondOptionUseCase,
     GetSerieFirstOptionUseCase,
+    GetSerieSecondOptionUseCase,
   ],
 })
 export class HttpModule {}

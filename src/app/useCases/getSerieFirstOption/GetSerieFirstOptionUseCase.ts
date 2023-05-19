@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 
 import { JSDOM } from 'jsdom';
 
+import { EpisodesDTO } from 'app/dtos/EpisodesDTO';
 import { Episode } from 'app/entities/Episode';
 import { Season } from 'app/entities/Season';
 import { Serie } from 'app/entities/Serie';
@@ -53,6 +54,16 @@ export class GetSerieFirstOptionUseCase {
         `https://api.themoviedb.org/3/tv/${tmdbId}/external_ids?api_key=${process.env.TMDB_API_KEY}`,
       )
     ).json();
+
+    const { episodes }: EpisodesDTO = await (
+      await fetch(
+        `https://api.themoviedb.org/3/tv/${tmdbId}/season/${seasonNumber}?api_key=${process.env.TMDB_API_KEY}&language=pt-BR`,
+      )
+    ).json();
+
+    const episode = episodes.find(
+      item => item.episode_number === episodeNumber,
+    );
 
     const search = await JSDOM.fromURL(
       `https://embedflix.net/serie/${imdb_id}/${seasonNumber}/${episodeNumber}`,
@@ -114,10 +125,8 @@ export class GetSerieFirstOptionUseCase {
         tmdbId,
         season: new Season({
           seasonNumber,
-          tmdbId,
           episode: new Episode({
-            name,
-            tmdbId,
+            name: episode.name,
             url,
             type: 'm3au8',
             episodeNumber,

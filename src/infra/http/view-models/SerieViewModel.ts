@@ -8,6 +8,16 @@ export class SerieViewModel {
       tmdbId: serie.tmdbId,
       createdAt: serie.createdAt,
       updatedAt: serie.updatedAt,
+
+      season: {
+        seasonNumber: serie.season.seasonNumber,
+        episode: {
+          name: serie.season.episode.name,
+          url: serie.season.episode.url,
+          type: serie.season.episode.type,
+          episodeNumber: serie.season.episode.episodeNumber,
+        },
+      },
     };
   }
 }

@@ -22,7 +22,7 @@ model User {
 
 model Movie {
   id        String   @id @default(uuid())
-  name      String   @unique
+  name      String
   url       String   @unique
   tmdbId    Int      @unique
   type      String
@@ -34,7 +34,7 @@ model Movie {
 
 model Serie {
   id        String   @id @default(uuid())
-  name      String   @unique
+  name      String
   tmdbId    Int      @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
@@ -46,8 +46,7 @@ model Serie {
 
 model Season {
   id           String   @id @default(uuid())
-  tmdbId       Int      @unique
-  seasonNumber Int      @unique
+  seasonNumber Int
   createdAt    DateTime @default(now())
   updatedAt    DateTime @default(now())
 
@@ -61,9 +60,8 @@ model Season {
 
 model Episode {
   id            String   @id @default(uuid())
-  tmdbId        Int      @unique
-  episodeNumber Int      @unique
-  name          String   @unique
+  episodeNumber Int
+  name          String
   url           String   @unique
   type          String
   createdAt     DateTime @default(now())

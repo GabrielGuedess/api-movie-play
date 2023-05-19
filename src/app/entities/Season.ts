@@ -2,7 +2,6 @@ import { Episode } from 'app/entities/Episode';
 
 export interface SeasonProps {
   id?: string;
-  tmdbId: number;
   seasonNumber: number;
   episode: Episode;
   updatedAt?: Date;
@@ -26,14 +25,6 @@ export class Season {
 
   public get seasonNumber(): number {
     return this.props.seasonNumber;
-  }
-
-  public set tmdbId(tmdbId: number) {
-    this.props.tmdbId = tmdbId;
-  }
-
-  public get tmdbId(): number {
-    return this.props.tmdbId;
   }
 
   public set episode(episode: Episode) {

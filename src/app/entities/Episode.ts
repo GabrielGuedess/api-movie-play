@@ -1,7 +1,6 @@
 export interface EpisodeProps {
   id?: string;
   name: string;
-  tmdbId: number;
   url: string;
   type: string;
   episodeNumber: number;
@@ -42,14 +41,6 @@ export class Episode {
 
   public get type(): string {
     return this.props.type;
-  }
-
-  public set tmdbId(tmdbId: number) {
-    this.props.tmdbId = tmdbId;
-  }
-
-  public get tmdbId(): number {
-    return this.props.tmdbId;
   }
 
   public set episodeNumber(episodeNumber: number) {
