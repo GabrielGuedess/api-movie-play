@@ -36,7 +36,7 @@ ENV NODE_ENV production
 
 RUN pnpm install --ignore-scripts
 
-RUN pnpm prisma generate
+RUN npx prisma generate
 
 USER node
 
