@@ -12,6 +12,8 @@ COPY --chown=node:node . .
 
 RUN pnpm install
 
+RUN pnpm prisma generate
+
 USER node
 
 # BUILD
@@ -33,6 +35,8 @@ RUN pnpm build
 ENV NODE_ENV production
 
 RUN pnpm install --prod
+
+RUN pnpm prisma generate
 
 USER node
 
