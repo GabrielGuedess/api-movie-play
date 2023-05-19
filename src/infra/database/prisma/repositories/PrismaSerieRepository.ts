@@ -49,7 +49,6 @@ export class PrismaSerieRepository implements SerieRepository {
     }
 
     if (!serieExist) {
-      console.log(serie.name);
       const seriePrisma = await this.prisma.serie.upsert({
         where: {
           tmdbId: serie.tmdbId,
@@ -165,7 +164,10 @@ export class PrismaSerieRepository implements SerieRepository {
     seasonNumber: number,
     episodeNumber: number,
   ): Promise<Serie | null> {
-    const seriePrisma = await this.prisma.serie.findFirst({
+    const serieExist = await this.prisma.serie.findUnique({
+      where: {
+        tmdbId,
+      },
       include: {
         Season: {
           include: {
@@ -173,29 +175,33 @@ export class PrismaSerieRepository implements SerieRepository {
           },
         },
       },
+    });
+
+    const seasonExist = await this.prisma.season.findFirst({
       where: {
-        tmdbId,
-        Season: {
-          some: {
-            seasonNumber,
-            Episode: {
-              some: {
-                episodeNumber,
-              },
-            },
+        seasonNumber,
+        serie: {
+          tmdbId,
+        },
+      },
+    });
+
+    const episodeExist = await this.prisma.episode.findFirst({
+      where: {
+        episodeNumber,
+        season: {
+          seasonNumber,
+          serie: {
+            tmdbId,
           },
         },
       },
     });
 
-    if (!seriePrisma) {
+    if (!serieExist && seasonExist && episodeExist) {
       return null;
     }
 
-    return PrismaSerieMapper.toDomain(
-      seriePrisma,
-      seriePrisma.Season[0],
-      seriePrisma.Season[0].Episode[0],
-    );
+    return PrismaSerieMapper.toDomain(serieExist, seasonExist, episodeExist);
   }
 }
