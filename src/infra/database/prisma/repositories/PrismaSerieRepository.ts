@@ -45,11 +45,7 @@ export class PrismaSerieRepository implements SerieRepository {
     });
 
     if (serieExist && seasonExist && episodeExist) {
-      return PrismaSerieMapper.toDomain(
-        serieExist,
-        serieExist.Season[0],
-        serieExist.Season[0].Episode[0],
-      );
+      return PrismaSerieMapper.toDomain(serieExist, seasonExist, episodeExist);
     }
 
     if (!serieExist) {
