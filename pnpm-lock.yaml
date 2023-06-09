@@ -11,8 +11,8 @@ dependencies:
     specifier: ^9.4.1
     version: 9.4.1(@nestjs/common@9.4.1)(@nestjs/core@9.4.1)
   '@nestjs/platform-fastify':
-    specifier: ^9.4.1
-    version: 9.4.1(@nestjs/common@9.4.1)(@nestjs/core@9.4.1)
+    specifier: ^9.4.2
+    version: 9.4.2(@nestjs/common@9.4.1)(@nestjs/core@9.4.1)
   '@prisma/client':
     specifier: ^4.14.1
     version: 4.14.1(prisma@4.14.1)
@@ -1256,8 +1256,8 @@ packages:
     transitivePeerDependencies:
       - supports-color
 
-  /@nestjs/platform-fastify@9.4.1(@nestjs/common@9.4.1)(@nestjs/core@9.4.1):
-    resolution: {integrity: sha512-+E5USIlsRNKSVsyjZ+JZ298gKDUM/SBUKOtGnOeu7McmNRchn8eA4JSzqMQPvxqxQKo38lEfR5PJC8xGoftVZA==}
+  /@nestjs/platform-fastify@9.4.2(@nestjs/common@9.4.1)(@nestjs/core@9.4.1):
+    resolution: {integrity: sha512-GwC+GfQlLEnU7PKV+5jxau0R43mSF+JfcMUA2Bb++zxPA9gAwQpKM4/3szbVclKBvmYl+Nt7Ga6Tz77/HABWBQ==}
     peerDependencies:
       '@fastify/static': ^6.0.0
       '@fastify/view': ^7.0.0
@@ -1277,7 +1277,7 @@ packages:
       fastify: 4.17.0
       light-my-request: 5.9.1
       path-to-regexp: 3.2.0
-      tslib: 2.5.0
+      tslib: 2.5.2
     transitivePeerDependencies:
       - supports-color
     dev: false
